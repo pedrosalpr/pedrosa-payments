@@ -17,3 +17,11 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+/.kanbn
+
+# Debug
+/storage/debugbar/
+
+# docker
+/.docker-volumes
