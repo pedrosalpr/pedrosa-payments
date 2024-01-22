@@ -1,13 +1,34 @@
 {
+    "name": "pedrosa-payments",
     "private": true,
-    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:pedrosalpr/pedrosa-payments.git"
+    },
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prepare": "husky install",
+        "commit": "git-cz",
+        "release": "commit-and-tag-version"
     },
     "devDependencies": {
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0.0",
-        "vite": "^5.0.0"
+        "vite": "^5.0.0",
+        "@commitlint/cli": "^18.4.4",
+        "@commitlint/config-conventional": "^18.4.4",
+        "commit-and-tag-version": "^12.2.0",
+        "commitizen": "^4.3.0",
+        "git-conventional-commits": "^2.6.7",
+        "cz-conventional-changelog": "^3.3.0",
+        "husky": "^8.0.3",
+        "stringify-package": "^1.0.1",
+        "validate-branch-name": "^1.3.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
     }
 }
