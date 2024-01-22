@@ -1,2 +1,2 @@
-CREATE DATABASE IF NOT EXISTS pedrosa-payments;
-USE pedrosa-payments;
+CREATE DATABASE IF NOT EXISTS payments;
+USE payments;
