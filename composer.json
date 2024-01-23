@@ -21,7 +21,8 @@
         "laravel/framework": "^10.41",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.9",
-        "php-open-source-saver/jwt-auth": "^2.1"
+        "php-open-source-saver/jwt-auth": "^2.1",
+        "phpro/api-problem": "^1.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
