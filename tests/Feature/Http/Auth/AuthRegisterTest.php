@@ -21,25 +21,29 @@ class AuthRegisterTest extends TestCase
     {
         $name = fake()->name();
         $email = fake()->unique()->safeEmail();
+        $cpf = fake()->cpf();
         $data = [
             'name' => $name,
             'email' => $email,
+            'cpf' => $cpf,
             'password' => fake()->password(),
         ];
         $response = $this->postJson($this->uri, $data);
         $response->assertCreated()
             ->assertJsonPath('user.name', $name)
             ->assertJsonPath('user.email', $email)
+            ->assertJsonPath('user.cpf', preg_replace('~\D~', '', $cpf))
             ->assertJsonPath('authorization.token', fn (string $token) => strlen($token) >= 3);
     }
 
     #[DataProvider('fieldsInvalidProvider')]
-    public function testShouldReturnUnprocessableEntity($name, $email, $password, $createUser): void
+    public function testShouldReturnUnprocessableEntity($name, $email, $password, $cpf, $createUser): void
     {
         $user = ($createUser) ? User::factory()->create() : null;
         $data = [
             'name' => $name,
             'email' => (!$createUser) ? $email : $user->email,
+            'cpf' => (!$createUser) ? $cpf : $user->cpf,
             'password' => $password,
         ];
         $response = $this->postJson($this->uri, $data);
@@ -55,13 +59,16 @@ class AuthRegisterTest extends TestCase
         $name = fake()->name();
         $email = fake()->unique()->safeEmail();
         $password = fake()->password();
+        $cpf = fake('pt_BR')->cpf();
         return [
-            'name invalid' => [null, $email, $password, false],
-            'email invalid' => [$name, null, $password, false],
-            'password invalid' => [$name, $email, null, false],
-            'password less than 6 char' => [$name, $email, '12345', false],
-            'all fields invalid' => [null, null, null, false],
-            'email exist' => [$name, $email, $password, true],
+            'name invalid' => [null, $email, $password, $cpf, false],
+            'email invalid' => [$name, null, $password, $cpf, false],
+            'password invalid' => [$name, $email, null, $cpf, false],
+            'password less than 6 char' => [$name, $email, '12345', $cpf, false],
+            'cpf invalid' => [$name, $email, $password, null, false],
+            'cpf wrong' => [$name, $email, $password, '111.111.111-11', false],
+            'all fields invalid' => [null, null, null, null, false],
+            'email and cpf exist' => [$name, $email, $password, $cpf, true],
         ];
     }
 }

@@ -45,6 +45,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'cpf' => preg_replace('~\D~', '', $request->cpf),
             'password' => Hash::make($request->password),
         ]);
 
