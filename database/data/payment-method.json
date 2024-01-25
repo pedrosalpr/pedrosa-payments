@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Pix",
+        "slug": "pix",
+        "tax": 1.5
+    },
+    {
+        "name": "Boleto",
+        "slug": "boleto",
+        "tax": 2.0
+    },
+    {
+        "name": "Bank Transfer",
+        "slug": "bank-transfer",
+        "tax": 4.0
+    }
+]

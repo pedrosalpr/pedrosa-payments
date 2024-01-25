@@ -6,7 +6,6 @@ namespace Tests\Feature\Http\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Response;
 use Illuminate\Testing\Fluent\AssertableJson;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -47,7 +46,7 @@ class AuthRegisterTest extends TestCase
             'password' => $password,
         ];
         $response = $this->postJson($this->uri, $data);
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
+        $response->assertUnprocessable()
             ->assertJson(
                 fn (AssertableJson $json) => $json->hasAll(['status', 'type', 'title', 'detail', 'errors'])
             )

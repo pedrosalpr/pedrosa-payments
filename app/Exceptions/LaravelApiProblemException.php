@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,7 +22,7 @@ class LaravelApiProblemException extends \Exception
         match (get_class($ex)) {
             ValidationException::class => $this->validation(),
             \UnhandledMatchError::class,\Exception::class => $this->default(),
-            UnauthorizedException::class => $this->unauthorized()
+            UnauthorizedException::class,AuthenticationException::class => $this->unauthorized()
         };
     }
 
@@ -52,7 +53,7 @@ class LaravelApiProblemException extends \Exception
     {
         $this->statusCode = Response::HTTP_BAD_REQUEST;
         $this->apiProblem = new HttpApiProblem($this->statusCode, [
-            'detail' => $this->ex->getMessage(),
+            'detail' => 'Error',
         ]);
     }
 
