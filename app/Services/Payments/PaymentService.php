@@ -14,7 +14,6 @@ use App\Repositories\PaymentRepository;
 use App\Services\Gateways\PaymentsProvider\PaymentProvider;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class PaymentService
 {
@@ -49,10 +48,9 @@ class PaymentService
         return $payment;
     }
 
-    public function listPayments(): Collection
+    public function listPayments($userId): Collection
     {
-        $user = Auth::user();
-        $paymentsModelCollection = $this->paymentRepository->getPaymentsByUserId($user->id);
+        $paymentsModelCollection = $this->paymentRepository->getPaymentsByUserId($userId);
         $paymentsEntityCollection = $paymentsModelCollection->map(function ($paymentModel) {
             $paymentEntity = PaymentFactory::createFromModel($paymentModel);
             return $paymentEntity->getDetailsPayment();

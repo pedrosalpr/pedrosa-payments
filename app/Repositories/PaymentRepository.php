@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Entities\Payments\PaymentContract;
+use App\Enums\Payments\Status;
 use App\Models\Payments\Payment;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -32,5 +33,10 @@ class PaymentRepository
     public function getPaymentsByUserId(string $userId): Collection
     {
         return Payment::where('user_id', $userId)->get();
+    }
+
+    public function getPaymentsPaidByUserId(string $userId): Collection
+    {
+        return Payment::where('user_id', $userId)->where('status', Status::PAID)->get();
     }
 }

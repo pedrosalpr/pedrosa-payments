@@ -29,7 +29,8 @@ class PaymentController extends Controller
 
     public function list()
     {
-        $payments = $this->paymentService->listPayments();
+        $user = Auth::user();
+        $payments = $this->paymentService->listPayments($user->id);
         return response()->json($payments->all());
     }
 
