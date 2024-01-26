@@ -10,6 +10,7 @@ enum Status: string
     case PAID = 'paid';
     case EXPIRED = 'expired';
     case FAILED = 'failed';
+    case PROCESSING = 'processing';
 
     public static function tryFromType($value): ?self
     {
@@ -18,7 +19,7 @@ enum Status: string
             'PAID' => Status::PAID,
             'EXPIRED' => Status::EXPIRED,
             'FAILED' => Status::FAILED,
-            null => Status::PENDING,
+            'PROCESSING' => Status::PROCESSING,
         };
     }
 

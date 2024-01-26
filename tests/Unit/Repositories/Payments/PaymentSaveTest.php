@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Repositores\Payments;
+namespace Tests\Unit\Repositories\Payments;
 
+use App\Domain\PaymentsStatus\PaymentStatusPending;
 use App\Entities\Clients\ClientContract;
 use App\Entities\Payments\Payment;
 use App\Entities\PaymentsMethods\PaymentMethodFactory;
 use App\Enums\Payments\Status;
 use App\Models\Clients\Client;
+use App\Models\User;
 use App\Repositories\PaymentRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery\MockInterface;
@@ -20,6 +22,8 @@ class PaymentSaveTest extends TestCase
 
     public function testShouldSavePaymentInDatabase(): void
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
         $client = Client::factory()->cpf()->create();
         $id = fake()->uuid();
         $mock = $this->mock(ClientContract::class, function (MockInterface $mock) use ($client) {
@@ -30,22 +34,26 @@ class PaymentSaveTest extends TestCase
         $paymentMethod = PaymentMethodFactory::createFromSlug('pix');
         $paymentEntity = new Payment(
             $id,
+            $user,
             $mock,
             $description,
             $value,
-            Status::PENDING,
+            new PaymentStatusPending(),
             $paymentMethod,
-            null
+            null,
+            $paymentMethod->tax
         );
         $paymentRepository = new PaymentRepository();
         $paymentRepository->save($paymentEntity);
         $this->assertDatabaseHas('payments', [
             'id' => $id,
+            'user_id' => $user->id,
             'value' => $value,
             'status' => Status::PENDING,
             'payment_method_id' => $paymentMethod->id,
             'due_date' => null,
-            'client_id' => $client->id
+            'client_id' => $client->id,
+            'tax' => $paymentMethod->tax
         ]);
     }
 }

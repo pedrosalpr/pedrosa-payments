@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Repositores\Clients;
+namespace Tests\Unit\Repositories\Clients;
 
 use App\Entities\Clients\PrivateIndividual\PrivateIndividual;
 use App\Enums\Identifiers\IdentifierType;

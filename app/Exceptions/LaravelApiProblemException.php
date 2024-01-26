@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use App\Exceptions\Domain\Payments\PaymentExpiredException;
+use App\Exceptions\Domain\Payments\PaymentFailedException;
+use App\Exceptions\Domain\Payments\PaymentForbiddenException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,7 +25,9 @@ class LaravelApiProblemException extends \Exception
         match (get_class($ex)) {
             ValidationException::class => $this->validation(),
             \UnhandledMatchError::class,\Exception::class => $this->default(),
-            UnauthorizedException::class,AuthenticationException::class => $this->unauthorized()
+            UnauthorizedException::class,AuthenticationException::class => $this->unauthorized(),
+            PaymentForbiddenException::class => $this->forbidden(),
+            PaymentFailedException::class,PaymentExpiredException::class => $this->errorProcessPayment()
         };
     }
 
@@ -62,6 +67,23 @@ class LaravelApiProblemException extends \Exception
         $this->statusCode = Response::HTTP_UNAUTHORIZED;
         $this->apiProblem = new HttpApiProblem($this->statusCode, [
             'detail' => $this->ex->getMessage(),
+        ]);
+    }
+
+    private function forbidden()
+    {
+        $this->statusCode = Response::HTTP_FORBIDDEN;
+        $this->apiProblem = new HttpApiProblem($this->statusCode, [
+            'detail' => $this->ex->getMessage(),
+        ]);
+    }
+
+    private function errorProcessPayment()
+    {
+        $this->statusCode = Response::HTTP_FORBIDDEN;
+        $this->apiProblem = new HttpApiProblem($this->statusCode, [
+            'detail' => $this->ex->getMessage(),
+            'payment_status' => ($this->ex instanceof PaymentFailedException || $this->ex instanceof PaymentExpiredException) ? $this->ex->getStatus()->value : null
         ]);
     }
 }

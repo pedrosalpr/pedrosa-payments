@@ -2,19 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Entities;
+namespace Tests\Unit\Entities\Payments;
 
 use App\Entities\Payments\PaymentFactory;
 use App\Models\Payments\PaymentMethod;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class PaymentTest extends TestCase
+class PaymentEntityTest extends TestCase
 {
     use RefreshDatabase;
 
     public function testEntityPayment(): void
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
         $clientName = fake()->name();
         $clientCpf = fake('pt_BR')->cpf();
         $paymentMethod = PaymentMethod::factory()->pix()->make();

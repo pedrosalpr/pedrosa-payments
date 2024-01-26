@@ -29,6 +29,7 @@ class PaymentMethodFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'id' => 1,
                 'name' => 'PIX',
                 'slug' => 'pix',
                 'tax' => 1.5
@@ -40,6 +41,7 @@ class PaymentMethodFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'id' => 2,
                 'name' => 'Boleto',
                 'slug' => 'boleto',
                 'tax' => 2.0
@@ -51,6 +53,7 @@ class PaymentMethodFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
+                'id' => 3,
                 'name' => 'Bank Transfer',
                 'slug' => 'bank-transfer',
                 'tax' => 4.0

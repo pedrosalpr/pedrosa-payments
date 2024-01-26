@@ -13,4 +13,18 @@ class PaymentRepository
     {
         return Payment::create($payment->toModel());
     }
+
+    public function update(PaymentContract $payment): void
+    {
+        $paymentModel = $this->getPaymentById($payment->getId());
+        $paymentModel->processed_at = $payment->getProcessedAt();
+        $paymentModel->expired_at = $payment->getExpiredAt();
+        $paymentModel->status = $payment->getPaymentStatus()->getStatus();
+        $paymentModel->save();
+    }
+
+    public function getPaymentById(string $paymentId): ?Payment
+    {
+        return Payment::find($paymentId);
+    }
 }
