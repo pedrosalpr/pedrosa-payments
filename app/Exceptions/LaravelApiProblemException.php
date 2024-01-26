@@ -14,6 +14,7 @@ use Illuminate\Http\Response;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Phpro\ApiProblem\Http\HttpApiProblem;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class LaravelApiProblemException extends \Exception
 {
@@ -26,7 +27,7 @@ class LaravelApiProblemException extends \Exception
             ValidationException::class => $this->validation(),
             \UnhandledMatchError::class,\Exception::class => $this->default(),
             UnauthorizedException::class,AuthenticationException::class => $this->unauthorized(),
-            PaymentForbiddenException::class => $this->forbidden(),
+            PaymentForbiddenException::class,AccessDeniedHttpException::class => $this->forbidden(),
             PaymentFailedException::class,PaymentExpiredException::class => $this->errorProcessPayment()
         };
     }

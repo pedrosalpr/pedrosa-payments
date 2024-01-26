@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Payments;
 
+use App\Models\Payments\Payment;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProcessPaymentRequest extends FormRequest
@@ -13,7 +14,7 @@ class ProcessPaymentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->id == Payment::find($this->get('payment_id'))?->user_id;
     }
 
     /**

@@ -22,6 +22,17 @@ class PaymentProcessTest extends TestCase
 
     private string $uri = '/api/payments/process';
 
+    public function testShouldReturnForbiddenWhenPaymentIsOtherUser(): void
+    {
+        $user = User::factory()->create();
+        $payment = Payment::factory()->create();
+        $data = [
+            'payment_id' => $payment->id
+        ];
+        $response = $this->actingAs($user, 'api')->postJson($this->uri, $data);
+        $response->assertForbidden();
+    }
+
     #[DataProvider('fieldsProcessPaymentProvider')]
     public function testShouldProcessPaymentAsPaidInFirstSimulate($paymentMethod, $dueDate): void
     {
