@@ -8,6 +8,7 @@ use App\Entities\Payments\PaymentContract;
 use App\Entities\Payments\PaymentFactory;
 use App\Exceptions\Domain\Payments\PaymentExpiredException;
 use App\Exceptions\Domain\Payments\PaymentFailedException;
+use App\Models\Payments\Payment;
 use App\Repositories\ClientRepository;
 use App\Repositories\PaymentRepository;
 use App\Services\Gateways\PaymentsProvider\PaymentProvider;
@@ -57,6 +58,11 @@ class PaymentService
             return $paymentEntity->getDetailsPayment();
         });
         return $paymentsEntityCollection;
+    }
+
+    public function getPayment(Payment $paymentModel): PaymentContract
+    {
+        return PaymentFactory::createFromModel($paymentModel);
     }
 
     private function attemptProcessPayment(PaymentContract $payment): PaymentContract

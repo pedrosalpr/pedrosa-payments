@@ -15,6 +15,7 @@ use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
 use Phpro\ApiProblem\Http\HttpApiProblem;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LaravelApiProblemException extends \Exception
 {
@@ -28,7 +29,8 @@ class LaravelApiProblemException extends \Exception
             \UnhandledMatchError::class,\Exception::class => $this->default(),
             UnauthorizedException::class,AuthenticationException::class => $this->unauthorized(),
             PaymentForbiddenException::class,AccessDeniedHttpException::class => $this->forbidden(),
-            PaymentFailedException::class,PaymentExpiredException::class => $this->errorProcessPayment()
+            PaymentFailedException::class,PaymentExpiredException::class => $this->errorProcessPayment(),
+            NotFoundHttpException::class => $this->notFound()
         };
     }
 
@@ -76,6 +78,14 @@ class LaravelApiProblemException extends \Exception
         $this->statusCode = Response::HTTP_FORBIDDEN;
         $this->apiProblem = new HttpApiProblem($this->statusCode, [
             'detail' => $this->ex->getMessage(),
+        ]);
+    }
+
+    private function notFound()
+    {
+        $this->statusCode = Response::HTTP_NOT_FOUND;
+        $this->apiProblem = new HttpApiProblem($this->statusCode, [
+            'detail' => 'Resource not found',
         ]);
     }
 

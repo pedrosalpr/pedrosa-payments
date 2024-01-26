@@ -37,4 +37,5 @@ Route::controller(PaymentController::class)->prefix('payments')->group(function 
     Route::post('/', 'register');
     Route::post('/process', 'process');
     Route::get('/', 'list');
+    Route::get('/{payment}', 'get');
 });
