@@ -17,6 +17,12 @@ class PaymentController extends Controller
         $this->middleware('auth:api');
     }
 
+    public function list()
+    {
+        $payments = $this->paymentService->listPayments();
+        return response()->json($payments->all());
+    }
+
     public function register(RegisterPaymentRequest $request)
     {
         $payment = $this->paymentService->register($request->validated());

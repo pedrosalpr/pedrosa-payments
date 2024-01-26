@@ -12,6 +12,8 @@ use App\Repositories\ClientRepository;
 use App\Repositories\PaymentRepository;
 use App\Services\Gateways\PaymentsProvider\PaymentProvider;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentService
 {
@@ -44,6 +46,17 @@ class PaymentService
         throw_if($payment->isExpired(), PaymentExpiredException::paymentExpired($payment->getId()));
         throw_if($payment->isFailed(), PaymentFailedException::paymentFailed($payment->getId()));
         return $payment;
+    }
+
+    public function listPayments(): Collection
+    {
+        $user = Auth::user();
+        $paymentsModelCollection = $this->paymentRepository->getPaymentsByUserId($user->id);
+        $paymentsEntityCollection = $paymentsModelCollection->map(function ($paymentModel) {
+            $paymentEntity = PaymentFactory::createFromModel($paymentModel);
+            return $paymentEntity->getDetailsPayment();
+        });
+        return $paymentsEntityCollection;
     }
 
     private function attemptProcessPayment(PaymentContract $payment): PaymentContract

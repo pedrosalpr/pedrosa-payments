@@ -53,8 +53,8 @@ class PaymentFactory
             $paymentMethod,
             $paymentModel->due_date,
             $paymentModel->tax,
-            $paymentModel->processedAt,
-            $paymentModel->expiredAt,
+            $paymentModel->processed_at,
+            $paymentModel->expired_at,
         );
     }
 }

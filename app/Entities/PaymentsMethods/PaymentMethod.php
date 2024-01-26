@@ -12,4 +12,13 @@ readonly class PaymentMethod
         public string $slug,
         public float $tax
     ) {}
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
+        ];
+    }
 }

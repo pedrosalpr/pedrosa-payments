@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Entities\Payments\PaymentContract;
 use App\Models\Payments\Payment;
+use Illuminate\Database\Eloquent\Collection;
 
 class PaymentRepository
 {
@@ -26,5 +27,10 @@ class PaymentRepository
     public function getPaymentById(string $paymentId): ?Payment
     {
         return Payment::find($paymentId);
+    }
+
+    public function getPaymentsByUserId(string $userId): Collection
+    {
+        return Payment::where('user_id', $userId)->get();
     }
 }

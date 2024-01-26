@@ -143,4 +143,21 @@ class Payment implements PaymentContract
     {
         return $this->status->getStatus() === Status::PROCESSING;
     }
+
+    public function getDetailsPayment(): array
+    {
+        return [
+            'id' => $this->id,
+            'user_id' => $this->user->id,
+            'client_id' => $this->client->toArray(),
+            'description' => $this->description,
+            'value' => $this->value,
+            'status' => $this->status->getStatus()->value,
+            'payment_method' => $this->paymentMethod->toArray(),
+            'due_date' => $this->dueDate,
+            'tax' => $this->tax,
+            'processed_at' => $this->processedAt,
+            'expired_at' => $this->expiredAt,
+        ];
+    }
 }

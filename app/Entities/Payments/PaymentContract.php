@@ -14,6 +14,8 @@ interface PaymentContract
 
     public function getReponse(): array;
 
+    public function getDetailsPayment(): array;
+
     public function toModel(): array;
 
     public function process(bool $processed);
