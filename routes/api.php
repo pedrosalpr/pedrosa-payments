@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Payments\PaymentController;
 use App\Http\Controllers\Users\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('/health', function () {
     return response()->noContent();
 });
@@ -34,7 +29,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->prefix('users')->group(function () {
     Route::get('balance', 'balance');
 });
 

@@ -26,4 +26,10 @@ class AuthRefreshTest extends TestCase
             ->assertJsonPath('authorization.token', fn (string $token) => $token != $tokenOld);
         $this->assertAuthenticatedAs($user);
     }
+
+    public function testShouldReturnUnauthorized(): void
+    {
+        $response = $this->postJson($this->uri);
+        $response->assertUnauthorized();
+    }
 }

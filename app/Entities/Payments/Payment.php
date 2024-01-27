@@ -149,7 +149,7 @@ class Payment implements PaymentContract
         return [
             'id' => $this->id,
             'user_id' => $this->user->id,
-            'client_id' => $this->client->toArray(),
+            'client' => $this->client->toArray(),
             'description' => $this->description,
             'value' => $this->value,
             'status' => $this->status->getStatus()->value,

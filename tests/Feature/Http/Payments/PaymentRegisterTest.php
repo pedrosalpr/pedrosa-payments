@@ -17,6 +17,12 @@ class PaymentRegisterTest extends TestCase
 
     private string $uri = '/api/payments';
 
+    public function testShouldReturnUnauthorized(): void
+    {
+        $response = $this->postJson($this->uri);
+        $response->assertUnauthorized();
+    }
+
     #[DataProvider('fieldsRegisterProvider')]
     public function testShouldRegisterPayment($value, $paymentMethod, $dueDate): void
     {

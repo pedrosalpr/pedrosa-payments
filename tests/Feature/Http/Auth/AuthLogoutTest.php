@@ -21,4 +21,10 @@ class AuthLogoutTest extends TestCase
         $response->assertOk()
             ->assertJsonPath('message', 'Successfully logged out');
     }
+
+    public function testShouldReturnUnauthorized(): void
+    {
+        $response = $this->postJson($this->uri);
+        $response->assertUnauthorized();
+    }
 }

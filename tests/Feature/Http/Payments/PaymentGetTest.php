@@ -15,6 +15,12 @@ class PaymentGetTest extends TestCase
 
     private string $uri = '/api/payments';
 
+    public function testShouldReturnUnauthorized(): void
+    {
+        $response = $this->postJson($this->uri);
+        $response->assertUnauthorized();
+    }
+
     public function testShouldReturnPayment(): void
     {
         $user = User::factory()->create();

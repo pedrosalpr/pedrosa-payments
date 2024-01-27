@@ -17,6 +17,12 @@ class PaymentListTest extends TestCase
 
     private string $uri = '/api/payments';
 
+    public function testShouldReturnUnauthorized(): void
+    {
+        $response = $this->postJson($this->uri);
+        $response->assertUnauthorized();
+    }
+
     public function testShouldListEmpty(): void
     {
         $user = User::factory()->create();

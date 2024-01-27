@@ -16,7 +16,13 @@ class UserBalanceTest extends TestCase
 {
     use RefreshDatabase;
 
-    private string $uri = '/api/balance';
+    private string $uri = '/api/users/balance';
+
+    public function testShouldReturnForbiddenForUserNotAuthenticated(): void
+    {
+        $response = $this->getJson($this->uri);
+        $response->assertUnauthorized();
+    }
 
     public function testShouldReturnBalance(): void
     {
