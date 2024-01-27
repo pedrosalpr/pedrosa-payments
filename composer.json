@@ -1,12 +1,14 @@
 {
     "name": "pedrosalpr/pedrosa-payments",
-    "version": "0.0.1",
+    "version": "0.0.0",
     "type": "project",
     "description": "payments",
     "keywords": [
         "laravel",
         "framework",
-        "api"
+        "api",
+        "pedrosa",
+        "payments"
     ],
     "license": "MIT",
     "authors": [
