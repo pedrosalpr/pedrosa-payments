@@ -1,0 +1,35 @@
+post:
+  tags:
+    - Refresh
+  summary: Faz atualização do token do usuário
+  description: Atualiza o token do usuário na aplicação
+  operationId: refresh
+  security: 
+    - bearerAuth: []
+  responses:
+    '200':
+      description: "Usuário com token renovado"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/auth/Refresh.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não autenticado para fazer refresh"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+
+

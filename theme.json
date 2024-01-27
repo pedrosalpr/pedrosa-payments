@@ -1,0 +1,12 @@
+{
+    "theme": {
+        "sidebar": {
+            "width": "300px",
+            "textColor": "#000000",
+            "backgroundColor": "#F0F7FE"
+        },
+        "logo": {
+            "gutter": "16px"
+        }
+    }
+}

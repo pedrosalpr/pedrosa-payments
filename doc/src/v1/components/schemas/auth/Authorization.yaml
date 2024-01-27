@@ -1,0 +1,10 @@
+type: object
+properties:
+  type:
+    description: "Tipo de Autorização"
+    type: string
+    example: "Bearer"
+  token:
+    description: "Token do usuário"
+    type: string
+    example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwOTEvYXBpL2xvZ2luIiwiaWF0IjoxNzA2MzA2NDg0LCJleHAiOjE3MDYzMTAwODQsIm5iZiI6MTcwNjMwNjQ4NCwianRpIjoibVlweFdpcW1HVDVEc0theSIsInN1YiI6IjliMzAwYjMwLWJlNDYtNDYyMy1hZjJjLTQzZWY0ZjNjMmZlOSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.W5gjcPGdK9yFYI-GdkahBmN1onKewTzehwuXitpK-ag"

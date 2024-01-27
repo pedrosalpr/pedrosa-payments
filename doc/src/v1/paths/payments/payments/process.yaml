@@ -1,0 +1,49 @@
+post:
+  tags:
+    - Payment
+  summary: Processa o pagamento
+  description: Processa o pagamento do usuário autenticado
+  operationId: processa
+  security:
+    - bearerAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/payments/PaymentProcessRequest.yaml
+    description: Os campos necessário para processar o pagamento
+    required: true
+  responses:
+    '200':
+      description: "Pagamento Processado"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/payments/PaymentProcess.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não tem autorização para processar o pagamento"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+    '403':
+      description: "Proibido/Erro ao processar o pagamento"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Forbidden.yaml

@@ -1,0 +1,14 @@
+type: object
+required:
+  - name
+  - cpf
+properties:
+  name:
+    description: "Nome do cliente"
+    type: string
+    example: "Sra. Noemi Valente Domingues"
+  cpf:
+    description: "CPF do cliente"
+    type: string
+    example: "11122233344"
+

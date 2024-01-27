@@ -1,0 +1,175 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: Pedrosa Payments
+  description: |
+    **Bem-vindo ao guia de API do Pedrosa Payments**.
+
+    Essa API é baseada no protocolo HTTP e utilizamos a especificação `JWT` para implementar autorização.
+
+    Essa API possui URLs previsíveis, é orientada a recursos e utiliza códigos de resposta HTTP para indicar sucesso ou erros e exceções.
+
+    As respostas (incluindo os erros) e o corpo das requisições são obrigatoriamente formatados em JSON.
+
+    ## Iniciando
+
+    Para utilizar a API é necessário primeiramente é necessário se cadastrar na API para ter o token.
+
+    Com o token, você estará pronto para utilizar os recursos disponíveis aqui apresentados.
+
+    **Sobre as requisições à API:**
+
+    Os seguintes verbos HTTP estão disponíveis para uso:
+
+    | Verbo  | Descrição                    |
+    |--------|------------------------------|
+    | `GET`    | Solicita dados de um recurso |
+    | `POST`   | Cria um novo recurso         |
+    | `PUT`    | Atualiza um recurso          |
+    | `PATCH`  | Atualiza uma parte do recurso|
+    | `DELETE` | Exclui um recurso            |
+
+    **Cabeçalho das requisições:**
+
+    O cabeçalho de requisição HTTP comumente usado é:
+
+    ```
+    Accept: application/json, application/problem+json
+    Content-Type: application/json, application/problem+json
+    ```
+
+    Deve-se obrigatoriamente especificá-los no header das requisições à API.
+
+    ## Erros e Repostas
+
+    A API de **Pedrosa Payments** usa os códigos de resposta HTTP convencionais para indicar sucesso ou falha em uma solicitação à API.
+
+    Em geral, os códigos no intervalo **2xx** indicam sucesso.
+
+    Códigos no intervalo **4xx** indicam que algo falhou dado as informações fornecidas (por exemplo, um parâmetro obrigatório foi omitido, uma falha de tipagem dos atributos, etc…).
+
+    Os códigos no intervalo **5xx** indicam erros com nossa plataforma.
+
+    **Códigos de status HTTP utilizados**
+
+    A tabela abaixo apresenta uma relação dos principais códigos de status HTTP que podem ser retornados pela API:
+
+    | Código          | Descrição/Significado                                                                            |
+    |-----------------|--------------------------------------------------------------------------------------------------|
+    | 200             | OK - Tudo funcionou como esperado                                                                |
+    | 201             | Created - Recurso criado com sucesso                                                             |
+    | 204             | No Content - Sucesso, porém não há conteúdo a ser exibido                                        |
+    | 400             | Bad Request - Erro de requisição                                                                 |
+    | 401             | Unauthorized - Nenhum token foi passado                                                          |
+    | 403             | Forbidden - Acesso negado                                                                        |
+    | 404             | Not Found - O recurso solicitado não existe                                                      |
+    | 405             | Method Not Allowed - O verbo HTTP utilizado não é permitido para o recurso em questão            |
+    | 406             | Not Acceptable - Formato não aceitável                                                           |
+    | 410             | Gone - A solicitação foi removida de nossos servidores                                           |
+    | 415             | Unsupported Media Type - O formato de mídia dos dados requisitados não é suportado pelo servidor |
+    | 422             | Unprocessable Entity - Erro de validação                                                         |
+    | 429             | Too Many Requests - Muitas solicitações atingindo a API simultaneamente                          |
+    | 500,502,503,504 | Problema geral com o servidor. Tente novamente em instantes                                      |
+
+    **Formato da resposta de erros**
+
+    Quando é encontrado um erro, a resposta vem no formato json no tipo de `Content-type: application/problem+json`, que é baseado no [RFC7807](https://tools.ietf.org/html/rfc7807).
+
+    O retorno sempre retorna 5 campos como obrigatórios, sendo eles:
+
+    - **type**: Uma referência de URI [[RFC3986](https://tools.ietf.org/html/rfc3986)] que identifica o tipo de problema. Deve fornecer documentação legível por humanos para o tipo de problema. Quando este membro não está presente, seu valor é assumido como "about:blank".
+    - **title**: Um resumo curto e legível do tipo de problema. Quando `type` for igual a `about:blank` então `title` deve ser igual à descrição do código de status HTTP.
+    - **status**: O status code do HTTP
+    - **details**: Uma explicação legível para humanos sobre a ocorrência do problema.
+
+    Além destes campos, pode-se trazer outras campos para melhorar a explicação do erro.
+
+    Um exemplo de erro de validação, seguindo este padrão, é exibido a seguir:
+
+    ```json
+    {
+      "type": "about:blank",
+      "title": "Unprocessable Entity",
+      "status": 422,
+      "details": "The client.name field is required. (and 1 more error)",
+      "errors": [{
+          "client.name": [
+            {"The client.name field is required."}
+          ],
+          "client.cpf": [
+            {"The client.cpf field is required."}
+          ],
+        },
+      ]
+    }
+    ```
+
+  contact:
+    name: Leandro Pedrosa Rodrigues
+    email: pedrosalpr@gmail.com
+  x-logo:
+    url: 'doc/img/pedrosa-payments.png'
+    altText: Pedrosa Payments
+  license:
+    name: Project
+    url: https://www.github.com/pedrosa/pedrosa-payments
+
+servers:
+  - url: http://127.0.0.1:8091/api
+    description: Ambiente Localhost
+
+x-tagGroups:
+  - name: Auth
+    tags:
+      - Register
+      - Login
+      - Refresh
+      - Logout
+  - name: User
+    tags:
+      - Balance
+  - name: Payments
+    tags:
+      - Payment
+
+tags:
+  - name: Register
+    description: Operação para registrar um usuário na aplicação
+  - name: Login
+    description: Operação para logar na aplicação
+  - name: Refresh
+    description: Operação para atualizar o token do usuário
+  - name: Logout
+    description: Operação para deslogar da aplicação
+  - name: Balance
+    description: Operação para buscar o saldo do usuário autenticado
+  - name: Payment
+    description: Operação para cadastrar, listar, processar, processar e buscar o pagamento 
+
+paths:
+  /register:
+      $ref: "./paths/auth/register/register.yaml"
+  /login:
+      $ref: "./paths/auth/login/login.yaml"
+  /refresh:
+      $ref: "./paths/auth/refresh/refresh.yaml"
+  /logout:
+      $ref: "./paths/auth/logout/logout.yaml"  
+  /users/balance:
+      $ref: "./paths/users/balance/balance.yaml"
+  /payments:
+    $ref: "./paths/payments/payments/payments.yaml"
+  /payments/{id}:
+      $ref: "./paths/payments/payments/payments_{id}.yaml"
+  /payments/process:
+    $ref: "./paths/payments/payments/process.yaml"
+
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  # schemas:
+  # requestBodies:
+  # responses:

@@ -1,0 +1,62 @@
+get:
+  tags:
+    - Payment
+  summary: Busca dados do pagamento
+  description: Busca as informações do pagamento
+  operationId: getPaymentById
+  security:
+    - bearerAuth: []
+  parameters:
+    - name: id
+      in: path
+      description: "Código do pagamento"
+      required: true
+      schema:
+        type: string
+        format: uuid
+      examples:
+        id:
+          value: "77291a54-100b-4fc4-a1bb-3c1c9b46e6ae"
+  responses:
+    '200':
+      description: "A informação do pagamento"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/payments/PaymentList.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não tem autorização para buscar o pagamento"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+    '403':
+      description: "Acesso proibido a informação do pagamento"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Forbidden.yaml
+    '404':
+      description: "Pagamento não encontrado"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/NotFound.yaml

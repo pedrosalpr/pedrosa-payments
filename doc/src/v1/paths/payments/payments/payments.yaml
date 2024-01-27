@@ -1,0 +1,83 @@
+get:
+  tags:
+    - Payment
+  summary: Lista os pagamentos
+  description: Lista todos os pagamentos do usuário autenticado
+  operationId: getListPayments
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: "A lista dos pagamentos do usuário"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/payments/ArrayOfPayments.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não tem autorização para listar os pagamentos"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+post:
+  tags:
+    - Payment
+  summary: Cadastra o pagamento
+  description: Cadastra pagamento de um determinado usuário
+  operationId: storePayment
+  security:
+    - bearerAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../../components/schemas/payments/PaymentStore.yaml
+    description: Os campos necessário para cadastrar o pagamento
+    required: true
+  responses:
+    '201':
+      description: "Sucesso ao cadastrar o pagamento"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/payments/Payment.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não tem autorização para cadastrar o pagamento"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+    '422':
+      description: "Erro na validação dos campos"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unprocessable.yaml
+

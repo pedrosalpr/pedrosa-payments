@@ -1,0 +1,26 @@
+type: object
+required:
+  - id
+  - name
+  - type
+  - identifier
+properties:
+  id:
+    description: "Código do cliente"
+    type: string
+    format: uuid
+    example: "651baec5-daac-3eb8-ae66-90c05c5f9356"
+  name:
+    description: "Nome do cliente"
+    type: string
+    example: "Sra. Noemi Valente Domingues"
+  type:
+    description: "Tipo do identificador do cliente"
+    type: string
+    enum: [cpf]
+    example: "cpf"
+  identifier:
+    description: "Identificador do cliente (CPF, CNPJ)"
+    type: string
+    example: "11122233344"
+

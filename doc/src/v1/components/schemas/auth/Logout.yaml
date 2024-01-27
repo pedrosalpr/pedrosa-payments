@@ -1,0 +1,9 @@
+type: object
+title: "Objeto de logout do usuário"
+required:
+  - message
+properties:
+  message:
+    description: "Mensagem dizendo que o usuário foi deslogado"
+    type: string
+    example: "Successfully logged out"

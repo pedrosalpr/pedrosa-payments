@@ -1,0 +1,34 @@
+get:
+  tags:
+    - Balance
+  summary: Busca o saldo do usuário autenticado
+  description: Retorna um array com chave 'balance' e o saldo de todos pagamentos pagos
+  operationId: balance
+  security: 
+    - bearerAuth: []
+  responses:
+    '200':
+      description: "O saldo do usuário"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/users/balance/Balance.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não tem autorização para consultar o saldo"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+

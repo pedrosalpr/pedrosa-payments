@@ -1,0 +1,4 @@
+description: "Lista de pagamentos"
+type: array
+items:
+  $ref: ./PaymentList.yaml

@@ -1,0 +1,10 @@
+type: object
+title: "Resposta do processamento do pagamento"
+required:
+  - status
+properties:
+  status:
+    description: "Status do pagamento"
+    type: string
+    enum: [paid]
+    example: "paid"

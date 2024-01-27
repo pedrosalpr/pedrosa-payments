@@ -1,0 +1,19 @@
+type: object
+title: "Objeto de registro do usuário"
+required:
+  - message
+  - user
+  - authorization
+properties:
+  message:
+    description: "Mensagem dizendo que o usuário foi cadastrado"
+    type: string
+    example: "User created successfully"
+  user:
+    description: "Usuário"
+    type: object
+    $ref: ../users/users/User.yaml
+  authorization:
+    description: "Autorização do usuário"
+    type: object
+    $ref: ./Authorization.yaml

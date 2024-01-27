@@ -1,0 +1,42 @@
+type: object
+title: "Dados do pagamento quando é cadastrado"
+required:
+  - id
+  - client
+  - description
+  - value
+  - status
+  - payment_method
+properties:
+  id:
+    allOf:
+      - $ref: ./PaymentId.yaml
+  user_id:
+    allOf:
+      - $ref: ../users/users/UserId.yaml
+  client:
+    allOf:
+      - $ref: ../clients/Client.yaml
+  description:
+    description: "Descrição do pagamento"
+    type: string
+    example: "Pagamento de boleto"
+  value:
+    description: "Valor do pagamento"
+    type: number
+    format: float
+    example: 20.00
+  payment_method:
+    description: "Método do pagamento"
+    type: string
+    example: "pix"
+  status:
+    description: "Status do pagamento"
+    type: string
+    enum: [paid, failed, expired]
+    example: "paid"
+  due_date:
+    description: "Data de vencimento do pagamento"
+    type: string
+    format: date-time
+    nullable: true

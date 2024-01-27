@@ -1,0 +1,49 @@
+type: object
+title: "Dados do usuário"
+required:
+  - id
+  - name
+  - email
+  - cpf
+  - created_at
+  - updated_at
+properties:
+  id:
+    allOf:
+      - $ref: ./UserId.yaml
+  name:
+    description: "Nome do usuário"
+    type: string
+    example: "Leandro Pedrosa Rodrigues"
+  email:
+    description: "Email do usuário"
+    type: string
+    format: email
+    example: "pedrosalpr@gmail.com"
+    nullable: false
+  email_verified_at:
+    description: "Data de verificação do email do usuário"
+    type: string
+    format: date-time
+    readOnly: false
+  cpf:
+    description: "CPF do usuário"
+    nullable: true
+    type: string
+    example: "41728814081"
+  created_at:
+    description: "Data de cadastro do usuário"
+    type: string
+    format: date-time
+    readOnly: true
+  updated_at:
+    description: "Data da última atualização do usuário"
+    type: string
+    format: date-time
+    readOnly: true
+  deleted_at:
+    description: "Data de delelção do usuário"
+    type: string
+    format: date-time
+    nullable: true
+    example: null

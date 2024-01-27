@@ -1,0 +1,20 @@
+type: object
+required:
+  - id
+  - name
+  - slug
+properties:
+  id:
+    description: "Código do método de pagamento"
+    type: integer
+    format: int32
+    example: 1
+  name:
+    description: "Nome do método de pagamento"
+    type: string
+    example: "Pix"
+  slug:
+    description: "Slug do método de pagamento"
+    type: string
+    example: "pix"
+

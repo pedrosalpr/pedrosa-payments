@@ -1,0 +1,27 @@
+type: object
+additionalProperties: true
+minProperties: 1
+description: >-
+  O detalhes do problema no formato JSON [[RFC7807](https://tools.ietf.org/html/rfc7807)].
+properties:
+  type:
+    type: string
+    description: >-
+      Uma referência de URI [[RFC3986](https://tools.ietf.org/html/rfc3986)] que identifica o tipo de problema.
+      Deve fornecer documentação legível por humanos para o tipo de problema.
+      Quando este membro não está presente, seu valor é assumido como "about:blank".
+  title:
+    type: string
+    description: >-
+      Um resumo curto e legível do tipo de problema.
+      NÃO DEVE mudar de ocorrência para ocorrência do problema, exceto para fins de localização.
+      Quando `type` for igual a `about:blank` então `title` deve ser igual à descrição do código de status HTTP
+  status:
+    type: integer
+    description: O status code do HTTP.
+    minimum: 400
+    maximum: 599
+  detail:
+    type: string
+    description: >-
+      Uma explicação legível para humanos sobre a ocorrência do problema.

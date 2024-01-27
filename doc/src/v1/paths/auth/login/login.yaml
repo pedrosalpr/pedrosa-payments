@@ -1,0 +1,43 @@
+post:
+  tags:
+    - Login
+  summary: Faz login do usuário
+  description: Autentica o usuário na aplicação
+  operationId: login
+  security: []
+  responses:
+    '200':
+      description: "Usuário logado na aplicação"
+      content:
+        application/json:
+          schema:
+            $ref: ../../../components/schemas/auth/Login.yaml
+    '400':
+      description: "Erro de requisição"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/BadRequest.yaml
+    '401':
+      description: "Não tem autorização para logar"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unauthorized.yaml
+    '422':
+      description: "Erro na validação dos campos"
+      content:
+        application/problem+json:
+          schema:
+            $ref: ../../../components/schemas/problems/Problem.yaml
+          examples:
+            response:
+              $ref: ../../../components/examples/Unprocessable.yaml
+
+

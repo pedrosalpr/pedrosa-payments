@@ -1,0 +1,14 @@
+type: object
+title: "Objeto de login"
+required:
+  - user
+  - authorization
+properties:
+  user:
+    description: "Usuário"
+    type: object
+    $ref: ../users/users/User.yaml
+  authorization:
+    description: "Autorização do usuário"
+    type: object
+    $ref: ./Authorization.yaml

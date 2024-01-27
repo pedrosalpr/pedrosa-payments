@@ -1,0 +1,31 @@
+type: object
+title: "Dados do pagamento para cadastrar"
+required:
+  - client
+  - description
+  - value
+  - payment_method
+properties:
+  client:
+    allOf:
+      - $ref: ../clients/ClientStore.yaml
+  description:
+    description: "Descrição do pagamento"
+    type: string
+    example: "Pagamento de boleto"
+  value:
+    description: "Valor do pagamento"
+    type: number
+    format: float
+    example: 20.00
+  payment_method:
+    description: "Método do pagamento"
+    type: string
+    example: "pix"
+  due_date:
+    description: "Data de vencimento do pagamento"
+    type: string
+    format: date-time
+    nullable: true
+
+

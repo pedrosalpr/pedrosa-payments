@@ -1,0 +1,5 @@
+description: "Código do usuário no formato UUID"
+type: string
+format: uuid
+readOnly: true
+example: "77291a54-100b-4fc4-a1bb-3c1c9b46e6ae"
