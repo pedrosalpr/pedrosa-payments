@@ -10,21 +10,29 @@
         "build": "vite build",
         "prepare": "husky install",
         "commit": "git-cz",
-        "release": "commit-and-tag-version"
+        "release": "commit-and-tag-version",
+        "api-live": "openapi preview-docs doc/src/v1/openapi.yaml -p 3100",
+        "api-lint": "openapi lint doc/src/v1/openapi.yaml",
+        "api-build": "redoc-cli build doc/src/v1/openapi.yaml -o='doc/index.html' --title='Pedrosa Payments' --options=theme.json",
+        "api-mock": "prism mock doc/src/v1/openapi.yaml"
     },
     "devDependencies": {
-        "axios": "^1.6.4",
-        "laravel-vite-plugin": "^1.0.0",
-        "vite": "^5.0.0",
         "@commitlint/cli": "^18.4.4",
         "@commitlint/config-conventional": "^18.4.4",
+        "@redocly/cli": "^1.8.0",
+        "@stoplight/prism-cli": "^5.5.3",
+        "@stoplight/spectral-cli": "^6.11.0",
+        "axios": "^1.6.4",
         "commit-and-tag-version": "^12.2.0",
         "commitizen": "^4.3.0",
-        "git-conventional-commits": "^2.6.7",
         "cz-conventional-changelog": "^3.3.0",
+        "git-conventional-commits": "^2.6.7",
         "husky": "^8.0.3",
+        "laravel-vite-plugin": "^1.0.0",
+        "redoc-cli": "^0.13.21",
         "stringify-package": "^1.0.1",
-        "validate-branch-name": "^1.3.0"
+        "validate-branch-name": "^1.3.0",
+        "vite": "^5.0.0"
     },
     "config": {
         "commitizen": {
