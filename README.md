@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pedrosa Payments
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Índice
 
-## About Laravel
+- [Pedrosa Payments](#pedrosa-payments)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Desenvolvimento](#desenvolvimento)
+    - [Tecnologia](#tecnologia)
+    - [Instalação](#instalação)
+      - [Parando container](#parando-container)
+      - [Makefile](#makefile)
+  - [Documentação da API](#documentação-da-api)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Objetivo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O objetivo da aplicação é desenvolver uma API para criar pagamento e processá-lo.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Neste projeto foi utilizado o padrão de Clean Architecture, além de uns design patterns como Diagrama de Estado para controlar os status do pagamento.
 
-## Learning Laravel
+### Diagrama de Estado
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![Diagrama de Estado](pedrosa-payment-state-diagram.png)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Desenvolvimento
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Tecnologia
 
-## Laravel Sponsors
+As tecnologias utilizadas no projeto:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+| Categoria             	|                  	|                   	|          	|
+|-----------------------	|------------------	|-------------------	|----------	|
+| **Aplicação**             	| [PHP 8.3](https://www.php.net/)              	| [Laravel Framework 10](https://laravel.com/docs/10.x)             	|          	|
+| **Banco de Dados**        	| [Mysql 8](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/)            	|                   	|          	|
+| **Testes**                	| [PHPUnit](https://phpunit.readthedocs.io/pt_BR/latest/)          	|   	|          	|
+| **Análise de Código**     	| [PHP CodeSniffer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) 	| [Larastan](https://github.com/nunomaduro/larastan) 	|  	| 
+| **Desenvolvimento**       	| [Tinker](https://github.com/laravel/tinker)           	|                   	|          	|
+| **Container**            	| [Docker](https://www.docker.com/)           	|                   	|          	|
+| **Debug**            	| [Debugbar](https://github.com/barryvdh/laravel-debugbar)           	|                  	|          	|
+| **API**             	| [OpenApi 3.0.3](https://swagger.io/specification/)              	|              	|          	|
+| **Lint**        	| [Redoc OpenApi CLI](https://redocly.com/docs/cli/quickstart/)            	|                   	|          	|
+| **Mock**                 	| [Prism](https://meta.stoplight.io/docs/prism/674b27b261c3c-overview)            	|                   	|          	|
+| **Documentação**    	| [Redoc](https://github.com/Redocly/redoc)           	|                   	|          	|
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+### Instalação
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Baixar o projeto:
 
-## Code of Conduct
+```
+git clone git@github.com:pedrosalpr/pedrosa-payments.git
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Rodar o comando `make up` para subir container, caso não exista a imagem, ele já builda
 
-## Security Vulnerabilities
+- Rodar o comando `make install` para instalar os pacotes do composer
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Parando container
 
-## License
+Caso queira parar container basta executar `make down`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Makefile
+
+Existe arquivo chamado `Makefile` que facilita a execução de comandos. 
+
+Para executar estes comandos basta executar `make [NOME_COMANDO]`.
+
+> Existem vários comandos relacionado imagem, container, instalação de pacotes, análise estática, testes e logs.
+
+> Para verificar sobre outros comandos do `make` basta olhar o arquivo `Makefile`.
+
+### Testes
+
+Os testes foram criados a partir da biblioteca [PHPUnit](https://phpunit.readthedocs.io/pt_BR/latest/).
+
+Para executar os testes basta rodar o comando
+
+```
+make test
+```
+
+> Para um teste mais específico é recomandável entrar dentro do container através do comando de atalho `make bash` e rodar o teste com filtragem
+
+## Documentação da API
+
+A documentação da API se encontra dentro do diretório `doc`.
+
+As especificações de openapi estão dentro do diretório `src`.
+
+### Comandos
+
+Os comandos no `package.json` para auxiliar tanto no desenvolvimento da documentação e do pessoal de frontend para consumir os mocks. 
+
+#### Live
+
+Este comando live monta uma preview da doc em tempo real, ou seja, qualquer alteração ele altera automaticamente.
+
+```
+npm run api-live
+```
+
+#### Lint
+
+Este comando faz a parte do lint da documentação. Caso encontra algum erro, ele mostra aonde está ocorrendo o erro.
+
+```
+npm run api-lint
+```
+
+#### Build
+
+Este comando gera a documentação estática da API.
+
+```
+npm run api-build
+```
+
+#### Mock
+
+Este comando gera os mocks para serem testados.
+
+```
+npm run api-mock
+```
